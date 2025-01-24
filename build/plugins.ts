@@ -16,7 +16,7 @@ import { defaultBuildTargets } from "./detect";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 // import { themePreprocessorPlugin } from "@pureadmin/theme";
 // import { genScssMultipleScopeVars } from "../src/layout/theme";
-// import { vitePluginFakeServer } from "vite-plugin-fake-server";
+import { vitePluginFakeServer } from "vite-plugin-fake-server";
 export function getPluginsList(
   VITE_CDN: boolean,
   VITE_COMPRESSION: any,
@@ -39,12 +39,12 @@ export function getPluginsList(
      */
     removeNoMatch(),
     // mock支持
-    // vitePluginFakeServer({
-    //   logger: false,
-    //   include: "mock",
-    //   infixName: false,
-    //   enableProd: true,
-    // }),
+    vitePluginFakeServer({
+      logger: false,
+      include: "mock",
+      infixName: false,
+      enableProd: true,
+    }),
     // 自定义主题
     // themePreprocessorPlugin({
     //   scss: {

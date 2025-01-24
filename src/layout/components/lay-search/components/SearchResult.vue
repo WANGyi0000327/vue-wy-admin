@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Props } from "../types";
+import { transformI18n } from "@/plugins/i18n";
 import { useResizeObserver } from "@pureadmin/utils";
 import { useEpThemeStoreHook } from "@/store/modules/epTheme";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -80,7 +81,7 @@ defineExpose({ handleScroll });
     >
       <component :is="useRenderIcon(item.meta?.icon)" />
       <span class="result-item-title">
-        {{ item.meta?.title }}
+        {{ transformI18n(item.meta?.title) }}
       </span>
       <EnterOutlined />
     </div>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import path from "path";
 import { getConfig } from "@/config";
+import { posix } from "path-browserify";
 import { menuType } from "@/layout/types";
 import { ReText } from "@/components/ReText";
 import { useNav } from "@/layout/hooks/useNav";
+import { transformI18n } from "@/plugins/i18n";
 import SidebarLinkItem from "./SidebarLinkItem.vue";
 import SidebarExtraIcon from "./SidebarExtraIcon.vue";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -97,8 +98,7 @@ function resolvePath(routePath) {
   if (httpReg.test(routePath) || httpReg.test(props.basePath)) {
     return routePath || props.basePath;
   } else {
-    // 使用path.posix.resolve替代path.resolve 避免windows环境下使用electron出现盘符问题
-    return path.posix.resolve(props.basePath, routePath);
+    return posix.resolve(props.basePath, routePath);
   }
 }
 </script>
@@ -145,7 +145,7 @@ function resolvePath(routePath) {
         truncated
         class="!w-full !pl-4 !text-inherit"
       >
-        {{ onlyOneChild.meta.title }}
+        {{ transformI18n(onlyOneChild.meta.title) }}
       </el-text>
 
       <template #title>
@@ -157,7 +157,7 @@ function resolvePath(routePath) {
             }"
             class="!w-full !text-inherit"
           >
-            {{ onlyOneChild.meta.title }}
+            {{ transformI18n(onlyOneChild.meta.title) }}
           </ReText>
           <SidebarExtraIcon :extraIcon="onlyOneChild.meta.extraIcon" />
         </div>
@@ -204,7 +204,7 @@ function resolvePath(routePath) {
             item.parentId === null,
         }"
       >
-        {{ item.meta.title }}
+        {{ transformI18n(item.meta.title) }}
       </ReText>
       <SidebarExtraIcon v-if="!isCollapse" :extraIcon="item.meta.extraIcon" />
     </template>

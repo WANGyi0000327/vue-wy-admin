@@ -10,11 +10,21 @@ import {
 import {
   type UserResult,
   type RefreshTokenResult,
-  getLogin,
   refreshTokenApi,
+  getLogin,
 } from "@/api/user";
+// import { getLogin } from "@/api/admin";
 import { useMultiTagsStoreHook } from "./multiTags";
-import { type DataInfo, setToken, removeToken, userKey } from "@/utils/auth";
+import {
+  type DataInfo,
+  setToken,
+  removeToken,
+  userKey,
+  AccessTokenKey,
+  ExpiresKey,
+  RefreshTokenKey,
+} from "@/utils/auth";
+import { requestTo } from "@/utils/http/tool";
 
 export const useUserStore = defineStore("pure-user", {
   state: (): userType => ({
@@ -77,15 +87,34 @@ export const useUserStore = defineStore("pure-user", {
     },
     /** 登入 */
     async loginByUsername(data) {
-      return new Promise<UserResult>((resolve, reject) => {
-        // getLogin(data)
-        //   .then(data => {
-        //     if (data?.success) setToken(data.data);
-        //     resolve(data);
-        //   })
-        //   .catch(error => {
-        //     reject(error);
-        //   });
+      return new Promise<UserResult>(async (resolve, reject) => {
+        /** 模拟接口 */
+        getLogin(data)
+          .then((data) => {
+            if (data?.success) setToken(data.data);
+            resolve(data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+        /** 接口调用打开 */
+        // const [err, result] = await requestTo(getLogin(data));
+        // console.log("🌳-----err, result-----", err, result);
+        // if (err) {
+        //   reject(err);
+        // }
+        // if (result) {
+        //   const { admin, token } = result;
+        //   const TokenInfo: any = {
+        //     username: admin.name,
+        //     roles: [admin.role],
+        //     accessToken: token[AccessTokenKey],
+        //     refreshToken: token[RefreshTokenKey],
+        //     expires: token[ExpiresKey] * 1000,
+        //   };
+        //   setToken(TokenInfo);
+        //   resolve(result);
+        // }
       });
     },
     /** 前端登出（不调用接口） */

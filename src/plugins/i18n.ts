@@ -14,12 +14,11 @@ const siphonI18n = (function () {
     Object.entries(
       import.meta.glob("../../locales/*.y(a)?ml", { eager: true }),
     ).map(([key, value]: any) => {
-      console.log("🍪-----value-----", value.default);
       const matched = key.match(/([A-Za-z0-9-_]+)\./i)[1];
       return [matched, value.default];
     }),
   );
-  console.log("🌈-----cache-----", cache);
+
   return (prefix = "zh-CN") => {
     return cache[prefix];
   };

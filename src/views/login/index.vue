@@ -73,21 +73,25 @@ const onLogin = async (formEl: FormInstance | undefined) => {
           username: ruleForm.username,
           password: ruleForm.password,
         })
-        .then((res) => {
+        .then(async (res) => {
+          console.log("🐠-----res-----", res);
           if (res.success) {
+            console.log("🌈-----res.success-----", res.success);
             // 获取后端路由
-            return initRouter().then(() => {
-              disabled.value = true;
-              router
-                .push(getTopMenu(true).path)
-                .then(() => {
-                  message(t("login.pureLoginSuccess"), { type: "success" });
-                })
-                .finally(() => (disabled.value = false));
-            });
+            await initRouter();
+            disabled.value = true;
+            router
+              .push(getTopMenu(true).path)
+              .then(() => {
+                message(t("login.pureLoginSuccess"), { type: "success" });
+              })
+              .finally(() => (disabled.value = false));
           } else {
             message(t("login.pureLoginFail"), { type: "error" });
           }
+        })
+        .catch((err) => {
+          message(t("login.pureLoginFail"), { type: "error" });
         })
         .finally(() => (loading.value = false));
     }
@@ -122,7 +126,7 @@ watch(loginDay, (value) => {
 
 <template>
   <div class="select-none">
-    <img :src="bg" class="wave">
+    <img :src="bg" class="wave" />
     <div class="flex-c absolute right-5 top-3">
       <!-- 主题 -->
       <el-switch
@@ -219,7 +223,7 @@ watch(loginDay, (value) => {
               </el-form-item>
             </Motion>
 
-            <Motion :delay="200">
+            <!-- <Motion :delay="200">
               <el-form-item prop="verifyCode">
                 <el-input
                   v-model="ruleForm.verifyCode"
@@ -232,7 +236,7 @@ watch(loginDay, (value) => {
                   </template>
                 </el-input>
               </el-form-item>
-            </Motion>
+            </Motion> -->
 
             <Motion :delay="250">
               <el-form-item>

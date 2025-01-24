@@ -70,7 +70,12 @@ type ResultTable = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/login", { data });
+  return http.request<UserResult>(
+    "post",
+    "/login",
+    { data },
+    { isNeedToken: false },
+  );
 };
 
 /** 刷新`token` */

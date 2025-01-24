@@ -47,7 +47,8 @@ const modules: Record<string, any> = import.meta.glob(
 const routes = [];
 
 Object.keys(modules).forEach((key) => {
-  const black_list = ["./modules/about.ts", "./modules/error.ts"];
+  // const black_list = ["./modules/about.ts", "./modules/error.ts"];
+  const black_list = [];
   if (!black_list.includes(key)) routes.push(modules[key].default);
 });
 

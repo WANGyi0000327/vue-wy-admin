@@ -106,6 +106,7 @@ export function useNav() {
   }
 
   function onPanel() {
+    console.log("🍧-----onPanel-----");
     emitter.emit("openPanel");
   }
 
@@ -118,6 +119,7 @@ export function useNav() {
   }
 
   function handleResize(menuRef) {
+    console.log("🍧-----menuRef-----", menuRef);
     menuRef?.handleResize();
   }
 

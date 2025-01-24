@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useGlobal } from "@pureadmin/utils";
 import { useNav } from "@/layout/hooks/useNav";
 
@@ -16,7 +17,7 @@ withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   (e: "toggleClick"): void;
 }>();
-
+const { t } = useI18n();
 const { tooltipEffect } = useNav();
 
 const iconClass = computed(() => {
@@ -34,7 +35,9 @@ const toggleClick = () => {
 <template>
   <div
     v-tippy="{
-      content: isActive ? '点击折叠' : '点击展开',
+      content: isActive
+        ? t('buttons.pureClickCollapse')
+        : t('buttons.pureClickExpand'),
       theme: tooltipEffect,
       hideOnClick: 'toggle',
       placement: 'right',

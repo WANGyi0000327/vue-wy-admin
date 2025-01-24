@@ -165,6 +165,7 @@ function handleAsyncRoutes(routeList) {
     formatFlatteningRoutes(addAsyncRoutes(routeList)).map(
       (v: RouteRecordRaw) => {
         // 防止重复添加路由
+
         if (
           router.options.routes[0].children.findIndex(
             (value) => value.path === v.path,
@@ -268,6 +269,7 @@ function formatTwoStageRoutes(routesList: RouteRecordRaw[]) {
       newRoutesList[0]?.children.push({ ...v });
     }
   });
+
   return newRoutesList;
 }
 
@@ -332,6 +334,7 @@ function addAsyncRoutes(arrRoutes: Array<RouteRecordRaw>) {
       addAsyncRoutes(v.children);
     }
   });
+
   return arrRoutes;
 }
 
